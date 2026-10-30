@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "TankTrouble Mod Loader",
+  "version": "2.0",
+   "icons": {
+    "128": "icon.png"
+  },
+
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "TTOverride",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback"
+  ],
+  "host_permissions": [
+    "https://tanktrouble.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "TTOverride.js"
+      ],
+      "matches": [
+        "*://*/*"
+      ]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://tanktrouble.com/*"
+      ],
+      "js": [
+        "loader.js"
+      ],
+	  "world": "MAIN",
+	  "run_at": "document_idle"
+    }
+  ]
+}
