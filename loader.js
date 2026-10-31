@@ -49,97 +49,7 @@ function joinPlayerStart(client_id)
 
 function tryJoinGame(client_id)
 {
-	console.log(ue.phaserInstance && ue.phaserInstance.state.current == "Lobby")
-  if(ue.phaserInstance && ue.phaserInstance.state.current == "Lobby")
-  {
-	qt.UILobbyState.joiningGame = true;
-	u.setMode(u.MODE_CLIENT_ONLINE);
-	le.getClient().updateGameList();
-	var lobbies = le.getClient().getAvailableGameStates();
-	var foundPlayer = false;
-	lobbies.forEach
-	(
-	  (lobby) =>
-	  {
-		var clients = lobby.data.playerStates;
-		clients.forEach
-		(
-		  (client) =>
-		  {
-			if(client.playerId == client_id)
-			{
-			  le.getClient().joinGame(lobby.data.id);
-			  foundPlayer = true;
-			}
-		  }
-		);
-	  }
-	);
-
-	if(!foundPlayer)
-	{
-	  A.ErrorBox.show("Failed to join this player's game, they may not be online.", "Join Error");
-	}
-  }
-  else setTimeout(() => tryJoinGame(client_id), 500);
-}
-A.JoinGameOverlay = 
-{
-  wrapper: null,
-  headline: null,
-  usernameHeadline: null,
-  form: null,
-  newUsernameInput: null,
-  submitInput: null,
-  initialised: !1,
-  showing: !1,
-  _initialise() 
-A.TankInfoBox._showRelevantButtonsAndInfo = function()
-{
-  var TankInfoBox = A.TankInfoBox;
-  TankInfoBox._showRelevantButtonsAndInfoOG();
-
-  // Don't bother enabling the button if we are in-game.
-  //if(ue.phaserInstance && ue.phaserInstance.state.current == "Game")
-  //  return;
-
-  TankInfoBox.infoGameJoin.removeClass("disabled");
-  TankInfoBox.infoGameJoin.off('mouseup').on
-  (
-	'mouseup',
-	function(event)
-	{
-		joinPlayerStart(TankInfoBox.playerId);
-		TankInfoBox.hide();
-	}
-  );
-}
-
-function joinByName(username)
-{
-	O.getPlayerDetailsByUsername(username, x.getPlayerDetailsByUsernameCache()).then
-	(
-		(a)=>
-		{
-		  if(typeof a == "string") return A.ErrorBox.show("Player does not exist.", "Join Error");
-		  joinPlayerStart(a.data.playerId);
-		}
-	)
-}
-
-function joinPlayerStart(client_id)
-{
-  ki.navigateToTab('game', '/game', {});
-  le.getClient().leaveGame(true);
-  if(ue.phaserInstance && (ue.phaserInstance.state.current == "Lobby" || ue.phaserInstance.state.current == "Game"))
-	tryJoinGame(client_id);
-  else
-	setTimeout(() => tryJoinGame(client_id), 500);
-}
-
-function tryJoinGame(client_id)
-{
-	console.log(ue.phaserInstance && ue.phaserInstance.state.current == "Lobby")
+  console.log(ue.phaserInstance && ue.phaserInstance.state.current == "Lobby")
   if(ue.phaserInstance && ue.phaserInstance.state.current == "Lobby")
   {
 	qt.UILobbyState.joiningGame = true;
@@ -270,8 +180,8 @@ A.JoinGameOverlay =
 
 setTimeout
 (
-	() => {
-		alert("added button")
+	() => 
+	{
 		var b = document.createElement("button");
 		b.innerHTML = "Join Game";
 		b.style.paddingTop = "10px";
