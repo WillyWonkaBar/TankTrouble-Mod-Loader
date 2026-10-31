@@ -152,7 +152,8 @@ A.JoinGameOverlay =
 		le.getClient().updateGameList();
 		
 		// never-nesters hate me for this
-		var users = []
+		this.userList.empty();
+		var users = [];
 		var lobbies = le.getClient().getAvailableGameStates();
 		lobbies.forEach
 		(
