@@ -2,7 +2,7 @@
 	{
 	  "id" : 1,
 	  "priority": 1,
-	  "action" : { "type" : "redirect", "redirect": { "extensionPath": "/TTOverride.js" }  },
+	  "action" : { "type" : "redirect", "redirect": { "extensionPath": "/scripts/TTOverride.js" }  },
 	  "condition" : {
 		"urlFilter" : "/build/js/index-",
 		"resourceTypes" : ["script"]
