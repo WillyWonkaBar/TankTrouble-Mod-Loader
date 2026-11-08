@@ -1,15 +1,18 @@
 // TODO: TankTrouble-ify the dialogs
+const browserAPI = typeof browser !== "undefined" ? browser : chrome;
+
 
 class ModManager
 {
 	constructor()
 	{
+		this.currentMod = -1;
 		this.container = document.getElementById("snippet-container");
 	}
 
 	async getMods()
 	{
-		const result = await browser.storage.local.get("ttmods");
+		const result = await browserAPI.storage.local.get("ttmods");
 		var tempresult = result.ttmods || [];
 		console.log(tempresult);
 		
@@ -18,15 +21,22 @@ class ModManager
 
 	async saveMods(mods)
 	{
-		console.log(mods);
-		await browser.storage.local.set({ ttmods: mods });
+		await browserAPI.storage.local.set({ ttmods: mods });
 	}
 
 	async deleteMod(id)
 	{
 		const mods = await this.getMods();
 		mods.splice(id, 1);
-		console.log(mods);
+		this.currentMod = -1;
+		await this.saveMods(mods);
+		updateList();
+	}
+	
+	async toggleMod(id, state)
+	{
+		const mods = await this.getMods();
+		mods[id].enabled = state;
 		await this.saveMods(mods);
 		updateList();
 	}
@@ -145,7 +155,8 @@ class ModSnippet
 				);
 
 				this.element.classList.add("selected");
-
+				manager.currentMod = this.id;
+				
 				view.dispatch
 				(
 					{
@@ -192,6 +203,22 @@ class ModSnippet
 				);
 			}
 		);
+		
+		this.element.querySelectorAll('input[type="checkbox"]').forEach
+		(
+			input =>
+			{
+				input.addEventListener("click", event => event.stopPropagation());
+				
+				input.addEventListener
+				(
+					"change", event =>
+					{
+						manager.toggleMod(this.id, input.checked);
+					}
+				);
+			}
+		)
 	}
 }
 
@@ -299,6 +326,26 @@ class CreateModOverlay
 	}
 }
 
+const manager = new ModManager();
+const saveAction = CodeMirror.keymap.of
+(
+	[
+		{
+			key: "Mod-s",
+			run: async (view) => 
+			{
+				if(manager.currentMod != -1)
+				{
+					const code = view.state.doc.toString();
+					const mods = await manager.getMods();
+					mods[manager.currentMod].script = code;
+					manager.saveMods(mods);
+				}
+				return true;
+			},
+		},
+	]
+);
 
 const readOnlyCompartment = new CodeMirror.Compartment();
 const view = new CodeMirror.EditorView
@@ -308,30 +355,29 @@ const view = new CodeMirror.EditorView
 		[
 			CodeMirror.basicSetup,
 			CodeMirror.javascript(),
-			readOnlyCompartment.of(CodeMirror.EditorState.readOnly.of(true))
+			readOnlyCompartment.of(CodeMirror.EditorState.readOnly.of(true)),
+			saveAction
 		],
 		parent: document.getElementById("editor")
 	}
 );
 
-
-
-const manager = new ModManager();
-
 function updateList()
 {
-	view.dispatch
-	(
-		{
-			changes: 
+	if(manager.currentMod == -1)
+	{
+		view.dispatch
+		(
 			{
-				from: 0,
-				to: view.state.doc.length,
-				insert: "// Select a mod to continue..."
+				changes: 
+				{
+					from: 0,
+					to: view.state.doc.length,
+					insert: "// Select a mod to continue..."
+				}
 			}
-		}
-	);
-
+		);
+	}
 	manager.render();
 }
 

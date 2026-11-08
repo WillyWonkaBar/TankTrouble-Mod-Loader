@@ -35,7 +35,10 @@ window.addEventListener
 			for(mod of mods) 
 			{
 				if(mod == undefined|| !mod.enabled)
+				{
+					console.log(`Skipped mod: %c${mod.title}`, `color: red`);
 					continue;
+				}
 				
 				for(k in replacements)
 				{
