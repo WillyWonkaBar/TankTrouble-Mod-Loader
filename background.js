@@ -1,12 +1,27 @@
+const browserAPI = typeof browser !== "undefined" ? browser : chrome;
+
+browserAPI.action.onClicked.addListener
+(
+	() => 
+	{
+		browserAPI.tabs.create
+		(
+			{
+				url: browserAPI.runtime.getURL("index.html")
+			}
+		);
+	}
+);
+
 // Setup the default mods
-browser.storage.local.get
+browserAPI.storage.local.get
 (
 	"ttmods", 
 	(result) => 
 	{
 		if(result.ttmods == undefined) 
 		{
-			browser.storage.local.set
+			browserAPI.storage.local.set
 			(
 				{
 					ttmods: 
@@ -130,7 +145,7 @@ TankTrouble.JoinGameOverlay =
 				theme: 'tooltipster-error'
 			}
 		),
-		this.form.submit(s => (s.preventDefault(), this._sendChangeUsername(), !1)),
+		this.form.submit(s => (s.preventDefault(), this._JoinPlayerGameFromInput(), !1)),
 		this.newUsernameInput.keydown(s => this._checkKeyDown(s, null)),
 		this.newUsernameInput.focus
 		(
@@ -212,7 +227,7 @@ TankTrouble.JoinGameOverlay =
 	{
 		return true
 	},
-	_sendChangeUsername() 
+	_JoinPlayerGameFromInput() 
 	{
 		this.initialised ||
 		this._initialise();

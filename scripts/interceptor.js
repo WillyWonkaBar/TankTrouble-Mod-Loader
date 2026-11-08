@@ -1,4 +1,6 @@
-browser.storage.local.get
+const browserAPI = typeof browser !== "undefined" ? browser : chrome;
+
+browserAPI.storage.local.get
 (
 	"ttmods", 
 	(result) => 
