@@ -65,5 +65,15 @@
   "background": {
 	"service_worker": "background.js",
 	"scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+	 "gecko": {
+		 "id": "@WillyWonkaBar-TankTroubleModLoader",
+		 "data_collection_permissions": {
+		"required": [
+          "none"
+		]
+      }
+	}
   }
 }
