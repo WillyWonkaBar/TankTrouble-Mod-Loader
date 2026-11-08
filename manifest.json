@@ -17,7 +17,8 @@
   },
   "permissions": [
     "declarativeNetRequest",
-    "declarativeNetRequestFeedback"
+    "declarativeNetRequestFeedback",
+	"storage"
   ],
   "host_permissions": [
     "https://tanktrouble.com/*"
@@ -25,7 +26,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "scripts/TTOverride.js"
+        "scripts/TTOverride.js",
+		"index.html"
       ],
       "matches": [
         "*://*/*"
@@ -42,6 +44,19 @@
       ],
 	  "world": "MAIN",
 	  "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://tanktrouble.com/*"
+      ],
+      "js": [
+        "scripts/interceptor.js"
+      ],
+	  "world": "ISOLATED",
+	  "run_at": "document_idle"
     }
-  ]
+  ],
+  "background": {
+	"scripts": ["background.js"]
+  }
 }
