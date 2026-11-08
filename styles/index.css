@@ -1,0 +1,224 @@
+body
+{
+	margin: 0px;
+}
+#header 
+{
+	position: relative;
+	background: linear-gradient(to bottom,#427fff,#0014ab);
+	height: 6vh;
+	box-shadow: 0px -10px 10px #0000000D inset;
+}
+
+#header > p
+{
+	font-family: TankTrouble;
+	color: white;
+	position: absolute;
+	padding: 5px;
+}
+
+/* taken from https://tanktrouble.com/css/snippets.css */
+.snippet 
+{
+	background: linear-gradient(to bottom,#eee,#ccc);
+	border-radius: 5px;
+	color: #000;
+	cursor: default;
+	display: table;
+	position: relative;
+	border-spacing: 0;
+	font-family: TankTrouble;
+	border-collapse: collapse;
+	margin: 10px;
+	cursor: pointer;
+}
+
+
+/* taken from https://tanktrouble.com/css/main.css */
+button 
+{
+  text-align: center;
+  background: linear-gradient(to bottom,#427fff,#0014ab);
+  border-radius: 5px;
+  box-shadow: 0 3px 4px #00000080;
+  color: #fff;
+  cursor: pointer;
+  font-family: TankTrouble;
+  vertical-align: middle;
+  border: none;
+  outline: none;
+}
+
+button:active:not(.disabled) 
+{
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
+    transform: translateY(2px);
+}
+
+.disabled
+{
+	background: linear-gradient(to bottom, #cccccc, #4d4d4d);
+    color: #f0f0f0;
+    cursor: default;
+}
+
+.delete
+{
+	padding: 10px;
+	background: linear-gradient(to bottom, red, maroon);
+}
+
+
+input[type="checkbox"]
+{
+	text-align: center;
+	background: linear-gradient(to bottom,#427fff,#0014ab);
+	border-radius: 5px;
+	box-shadow: 0 3px 4px #00000080;
+	color: #fff;
+	cursor: pointer;
+	font-family: TankTrouble;
+	vertical-align: middle;
+	border: none;
+	outline: none;
+}
+
+/* taken from https://tanktrouble.com/css/fonts.css */
+@font-face 
+{
+    font-family: TankTrouble;
+    src: url('https://tanktrouble.com/build/assets/fonts/TankTrouble-ecfa1a92.woff2') format('woff2');
+    font-display: block;
+}
+
+#editor
+{
+	width: 50%;
+	height: 100%;
+	box-sizing: border-box;
+	min-height: 0;
+	overflow: auto;
+}
+
+.cm-editor
+{
+	height: 100%
+}
+
+.selected
+{
+	box-shadow: 0px 0px 10px #555;
+	transition: box-shadow 0.5s ease-out;
+}
+
+#main-content
+{
+	display: flex;
+	width: 100%;
+	height: 94vh;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+#snippet-container
+{
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	height: 100%;
+	box-sizing: border-box;
+	overflow: auto;
+	gap: 15px;
+}
+
+.author-label
+{
+	width: fit-content;
+	text-align: left;
+	padding: 15px;
+	font-size: 12px;
+	font-family: arial
+}
+
+.overlay 
+{
+	display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+	justify-content: center;
+	transition: opacity 200ms ease;
+	opacity: 0;
+}
+
+.overlay > .container
+{
+	text-align: center;
+	transform: translateY(-50%);
+	width: 100%;
+	max-height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-sizing: border-box;
+}
+
+.text-input
+{
+	background-color: #000;
+	border: 3px solid #808080;
+	border-radius: 8px;
+	color: #fff;
+	font-size: inherit;
+	outline: none !important;
+	padding: 10px 20px;
+	resize: none;
+	transition: border .5s;
+	width: 400px;
+	text-align: center !important;
+	font-size: 2em;
+	font-family: TankTrouble;
+	margin: 5px 0;
+}
+
+.create
+{
+	padding: 0 10px;
+	font-size: 1.2em;
+	min-width: 34px;
+	line-height: 34px;
+	margin: 10px 0;
+}
+
+.add-mod
+{
+	height: 32px;
+	width: 32px;
+	font-size: 24px;
+	position:absolute;
+	top: calc(100% - 40px);
+	left: 8px
+}
+
+.close-button
+{
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	cursor: pointer;
+	z-index: 1000;
+	font-size: 25px;
+	margin: 0;
+	background: linear-gradient(to bottom, red, maroon);
+	padding: 0 10px;
+	min-width: 34px;
+	line-height: 34px;
+}
