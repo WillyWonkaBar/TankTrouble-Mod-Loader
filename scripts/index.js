@@ -340,6 +340,7 @@ const saveAction = CodeMirror.keymap.of
 					const mods = await manager.getMods();
 					mods[manager.currentMod].script = code;
 					manager.saveMods(mods);
+					updateList();
 				}
 				return true;
 			},
