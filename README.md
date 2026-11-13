@@ -27,6 +27,6 @@ This extension Works on Chromium-based browsers and Firefox.
 
 # Tasks:
 - [X] Add basic code hook logic for the base functionality of the extension.
-- [ ] Make the Loader actually function as a loader, and not have hardcoded mods.
-- [ ] Add a UI to allow edit mods without needing to reload the extension
+- [X] Make the Loader actually function as a loader, and not have hardcoded mods.
+- [X] Add a UI to allow edit mods without needing to reload the extension
 
